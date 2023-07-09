@@ -110,6 +110,7 @@ class WinGUI(Tk):
             self.widget_dic["tk_tabs_draw_image_pie"])
         self.widget_dic["tk_button_out_image"] = self.__tk_button_out_image(self.widget_dic["tk_tabs_draw_image_pie"],
                                                                             'pie')
+        self.widget_dic["tk_select_box_pie_label_weight"] = self.__tk_select_box_pie_label_weight(self.widget_dic["tk_tabs_draw_image_pie"])
         self.__event_bind()
 
     "----------------------------------------------------------------------"
@@ -796,6 +797,16 @@ class WinGUI(Tk):
         btn.bind('<Button-1>',lambda e:self.select_color(['title','color'],'pie'))
         btn.place(x=260, y=60, width=86, height=30)
         return btn
+
+    def __tk_select_box_pie_label_weight(self, parent):
+        cb = Combobox(parent, state="readonly", )
+        cb['values'] = ("正常", "粗体", "细体")
+        default_selection = '正常'
+        cb.set('粗细')
+        cb.bind('<<ComboboxSelected>>', lambda e: self.on_select_box_click(cb, default_selection))
+        cb.bind('<FocusIn>', lambda e: self.check_selection(cb, ['title', 'weight'],'pie'))
+        cb.place(x=0, y=120, width=68, height=30)
+        return cb
 
     "----------------------------------------------------------------------"
     """
