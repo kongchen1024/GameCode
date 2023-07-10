@@ -29,24 +29,34 @@ class WinGUI(Tk):
     def __init__(self):
         super().__init__()
         self.__win()
+        # 左边部分
         self.widget_dic["tk_frame_left"] = self.__tk_frame_left(self)
         self.widget_dic["tk_tabs_left"] = self.__tk_tabs_left(self.widget_dic["tk_frame_left"])
         self.widget_dic["tk_table_data"] = self.__tk_table_data(self.widget_dic["tk_tabs_left_0"])
         self.widget_dic["tk_label_image"] = self.__tk_label_image(self.widget_dic["tk_tabs_left_1"])
-        self.widget_dic["tk_button_import"] = self.__tk_button_import(self)
         self.widget_dic["tk_text_receive_console"] = self.__tk_text_receive_console(self)
         self.widget_dic["tk_input_input"] = self.__tk_input_input(self)
         self.widget_dic["tk_label_send"] = self.__tk_label_send(self)
         self.widget_dic["tk_button_console_send"] = self.__tk_button_console_send(self)
         self.widget_dic["tk_button_console_clear"] = self.__tk_button_console_clear(self)
         self.widget_dic["tk_label_receive"] = self.__tk_label_receive(self)
+        # 右上部分
+        self.widget_dic["tk_button_import"] = self.__tk_button_import(self)
         self.widget_dic["tk_select_box_choice_indicator"] = self.__tk_select_box_choice_indicator(self)
         self.widget_dic["tk_button_indicator_add"] = self.__tk_button_indicator_add(self)
         self.widget_dic["tk_button_indicator_delete"] = self.__tk_button_indicator_delete(self)
         self.widget_dic["tk_select_box_excel"] = self.__tk_select_box_excel(self)
         self.widget_dic["tk_radio_button_data_transposition"] = self.__tk_radio_button_data_transposition(self)
+        # 右下选项卡
         self.widget_dic["tk_tabs_right"] = self.__tk_tabs_right(self)
+        self.widget_dic["tk_frame_process_data"] = self.__tk_frame_process_data(self.widget_dic["tk_tabs_right_0"])
         self.widget_dic["tk_frame_draw_image"] = self.__tk_frame_draw_image(self.widget_dic["tk_tabs_right_1"])
+        # 数据处理部分
+        self.widget_dic["tk_tabs_process_data"] = self.__tk_tabs_process_data(self.widget_dic["tk_frame_process_data"])
+
+
+
+        # 图像绘制部分
         self.widget_dic["tk_tabs_draw_image"] = self.__tk_tabs_draw_image(self.widget_dic["tk_frame_draw_image"])
         self.widget_dic["tk_label_bar_x_label"] = self.__tk_label_bar_x_label(self.widget_dic["tk_tabs_draw_image_bar"])
         self.widget_dic["tk_label_bar_y_label"] = self.__tk_label_bar_y_label(self.widget_dic["tk_tabs_draw_image_bar"])
@@ -355,6 +365,29 @@ class WinGUI(Tk):
     def __tk_frame_right_3(self, parent):
         frame = Frame(parent)
         frame.place(x=760, y=130, width=430, height=646)
+        return frame
+
+    "----------------------------------------------------------------------"
+    """
+             数据处理模块
+    """
+
+    def __tk_frame_process_data(self, parent):
+        frame = Frame(parent, )
+        frame.place(x=10, y=10, width=410, height=605)
+        return frame
+
+    def __tk_tabs_process_data(self, parent):
+        frame = ttk.Frame(parent)  # 创建一个Frame作为容器
+        style = ttk.Style(parent)
+        style.configure('lefttab.TNotebook', tabposition='wn')
+        sub_notebook = ttk.Notebook(frame, style='lefttab.TNotebook')
+        sub_frame1 = ttk.Frame(sub_notebook)
+        sub_notebook.add(sub_frame1, text='Sub Tab 1')
+        sub_frame2 = ttk.Frame(sub_notebook)
+        sub_notebook.add(sub_frame2, text='Sub Tab 2')
+        sub_notebook.place(x=0, y=0, width=430, height=646)  # 注意这里的调整
+        frame.place(x=760, y=130, width=430, height=646)  # 这里将Frame放置到父窗口的指定位置
         return frame
 
     "----------------------------------------------------------------------"
