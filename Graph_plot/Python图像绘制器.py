@@ -9,6 +9,8 @@ from PIL import ImageTk, Image
 import tkinter.font as tkFont
 from matplotlib import pyplot as plt
 from ttkthemes import ThemedStyle
+import copy
+import warnings
 
 global_data = pd.DataFrame()  # 创建全局变量 data
 global_sheet_names = []  # 创建全局变量 data_excel
@@ -378,18 +380,26 @@ class WinGUI(Tk):
         return frame
 
     def __tk_tabs_process_data(self, parent):
-        frame = ttk.Frame(parent)  # 创建一个Frame作为容器
         style = ttk.Style(parent)
         style.configure('lefttab.TNotebook', tabposition='wn')
-        sub_notebook = ttk.Notebook(frame, style='lefttab.TNotebook')
-        sub_frame1 = ttk.Frame(sub_notebook)
-        sub_notebook.add(sub_frame1, text='Sub Tab 1')
-        sub_frame2 = ttk.Frame(sub_notebook)
-        sub_notebook.add(sub_frame2, text='Sub Tab 2')
-        sub_notebook.place(x=0, y=0, width=430, height=646)  # 注意这里的调整
-        frame.place(x=760, y=130, width=430, height=646)  # 这里将Frame放置到父窗口的指定位置
+        frame = ttk.Notebook(parent, style='lefttab.TNotebook')
+        frame.pack(side='left', fill='y')
+        self.widget_dic['tk_process_data_type_conversion']=self.__tk_process_data_type_conversion(frame)
+        frame.add(self.widget_dic['tk_process_data_type_conversion'], text='标签和编码')
+        self.widget_dic['tk_process_data_outlier_handling'] = self.__tk_process_data_outlier_handling(frame)
+        frame.add(self.widget_dic['tk_process_data_outlier_handling'], text='异常值处理')
+        frame.place(x=10, y=10, width=430, height=646)
         return frame
 
+    def __tk_process_data_type_conversion(self,parent):
+        frame=ttk.Frame(parent)
+        frame.place(x=10, y=10, width=391, height=577)
+        return frame
+
+    def __tk_process_data_outlier_handling(self,parent):
+        frame=ttk.Frame(parent)
+        frame.place(x=10, y=10, width=391, height=577)
+        return frame
     "----------------------------------------------------------------------"
     """
              图像绘制模块
