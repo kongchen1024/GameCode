@@ -26,6 +26,8 @@ def DecisionTreeClassifier(data: pd.DataFrame,path=None,random_state_tree: int =
     y_pred=tree.predict(X_test)
     accuracy=accuracy_score(y_test,y_pred)
     print(accuracy)
-    # TODO: 保存模型
+    # TODO: 优化模型
+
+    # TODO: 输出模型效果
 
     return tree
